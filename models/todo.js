@@ -15,6 +15,7 @@ var todoSchema = new mongoose.Schema({
     }
 });
 
+// define the model from the schema above
 var Todo = mongoose.model('Todo', todoSchema);
-
+// export model. When we `require this file` we just get back the Todo model
 module.exports = Todo;

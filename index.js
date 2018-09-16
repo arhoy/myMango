@@ -1,17 +1,26 @@
 const express = require('express');
 const app = express();
 
-var todoRoutes = require('./routes/todos');
+// allows us to access the body that comes in a post/put request.
+var bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:true}));
 
+var todoRoutes = require('./routes/todos');
+var Todo = require('./models/');
+
+
+// the main endpoint
 app.get('/', (req, res) => {
     res.send(`
         Hello World This is Express.js! 
         Express.js is a node.js server framework used for web apps.
         This response has been sent to: http://localhost:3000/
+        ${Todo}
          `);
 });
 
-
+// the happy end point
 app.get('/happy',(req,res)=> {
     res.send(`I have send this text to the /happy page. 
             For example, this response has been sent to http://localhost:3000/happy
@@ -19,6 +28,7 @@ app.get('/happy',(req,res)=> {
          `);
 });
 
+// this is the endpoint for the todoRoutes.
 app.use('/api/todos',todoRoutes);
 
 app.listen(3000, () => console.log(
